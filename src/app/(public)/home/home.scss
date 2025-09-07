@@ -1,0 +1,29 @@
+.home {
+  //   background-color: #f7fafc;
+  //   min-height: 100vh;
+
+  & .content {
+    padding: 2rem;
+  }
+
+  & .download-resume {
+    background: linear-gradient(90deg, #e0eafc 0%, #cfdef3 100%);
+    background-size: 200% 100%;
+    background-position: left center;
+    transition: background-position 0.6s ease;
+    &:hover {
+      background: linear-gradient(90deg, #e0eafc 0%, #cfdef3 50%, #a1c4fd 100%);
+      background-position: right center;
+      animation: bg-move 0.6s forwards;
+    }
+  }
+
+  @keyframes bg-move {
+    from {
+      background-position: left center;
+    }
+    to {
+      background-position: right center;
+    }
+  }
+}

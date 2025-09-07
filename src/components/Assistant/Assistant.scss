@@ -1,0 +1,116 @@
+/* Assistant.scss */
+.assistant-icon {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 1000;
+  cursor: pointer;
+  background: #fff;
+  border-radius: 50px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  transition: box-shadow 0.2s;
+  &:hover {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+  }
+}
+
+.assistant-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.18);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.assistant-modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px 24px 24px 24px;
+  min-width: 320px;
+  max-width: 90vw;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  position: relative;
+  animation: fadeIn 0.2s;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.assistant-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #888;
+}
+.assistant-content {
+  margin-top: 16px;
+}
+
+.assistant-animated-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.assistant-bot-animated {
+  display: flex;
+  align-items: center;
+  animation: botBounce 1.2s infinite;
+}
+
+@keyframes botBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.assistant-sparkles-animated {
+  animation: sparkle-bounce 1.2s infinite alternate;
+  display: flex;
+}
+
+@keyframes sparkle-bounce {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.15) rotate(-10deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.assistant-animated-letter {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #7c3aed;
+  animation: letter-pulse 1.2s infinite alternate;
+}
+
+@keyframes letter-pulse {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.15);
+  }
+}

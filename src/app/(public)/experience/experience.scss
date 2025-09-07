@@ -1,0 +1,10 @@
+#experience-education {
+  background-color: rgb(255 255 255 / 75%);
+
+  & .education-bubble {
+    background-color: #fff;
+    & svg {
+      color: #10b981; // Tailwind's green-500
+    }
+  }
+}
