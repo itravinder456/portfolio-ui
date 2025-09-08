@@ -7,11 +7,7 @@ export const metadata = {
     "Crafting scalable, modern, and user-friendly web applications with over 6 years of hands-on experience in React.js, Node.js, Express.js, and MongoDB.",
 };
 
-type Props = {
-  params: { slug: string[] };
-};
-
-const Page = (props: Props) => {
+const Page = () => {
   return <Home />;
 };
 

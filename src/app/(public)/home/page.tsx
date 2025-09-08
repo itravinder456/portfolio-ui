@@ -6,11 +6,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 
-type Props = {
-  params?: { slug: string[] };
-};
-
-const Home = (props: Props) => {
+const Home = () => {
   return (
     <>
       <motion.div

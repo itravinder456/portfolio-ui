@@ -1,10 +1,6 @@
 import React from "react";
 
-type Props = {
-  params: { slug: string[] };
-};
-
-const BlogPage = (props: Props) => {
+const BlogPage = () => {
   return <div>Blog Page</div>;
 };
 

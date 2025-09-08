@@ -4,9 +4,6 @@ import { motion } from "framer-motion";
 import {
   Mail,
   Phone,
-  Linkedin,
-  Gitlab,
-  Download,
   Award,
   User,
   Globe,
@@ -14,7 +11,6 @@ import {
   MapPin,
   Languages,
 } from "lucide-react";
-import Image from "next/image";
 import "./about.scss";
 
 export default function About() {
@@ -122,17 +118,6 @@ export default function About() {
                 </motion.div>
               ))}
             </div>
-
-            {/* Download CV Button
-            <motion.a
-              href="/resume.pdf"
-              download
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-blue-500 text-blue-600 font-medium hover:bg-blue-500 hover:text-white transition"
-            >
-              Download CV <Download className="w-5 h-5" />
-            </motion.a> */}
           </div>
 
           {/* Statistics */}

@@ -1,10 +1,6 @@
 import React from "react";
 
-type Props = {
-  params: { slug: string[] };
-};
-
-const NotFound = (props: Props) => {
+const NotFound = () => {
   return <div>Not Found</div>;
 };
 

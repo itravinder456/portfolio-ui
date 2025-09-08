@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 type Props = {
   // Optionally accept a ref to the scrollable container
-  mainRef?: any;
+  mainRef: { current: HTMLDivElement | null } | null;
 };
 
 const ScrollProgressor = ({ mainRef }: Props) => {
@@ -15,7 +15,7 @@ const ScrollProgressor = ({ mainRef }: Props) => {
 
   useEffect(() => {
     const checkScrollable = () => {
-      if (mainRef.current) {
+      if (mainRef?.current) {
         const { scrollHeight, clientHeight } = mainRef.current;
         setIsScrollable(scrollHeight > clientHeight);
       }

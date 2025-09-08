@@ -1,10 +1,6 @@
 import React from "react";
 
-type Props = {
-  params: { slug: string[] };
-};
-
-const Profile = (props: Props) => {
+const Profile = () => {
   return <div>Profile</div>;
 };
 

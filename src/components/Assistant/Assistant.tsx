@@ -1,13 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import "./Assistant.scss";
-import { AudioLines, Sparkles } from "lucide-react"; // Changed icon
+import { AudioLines } from "lucide-react"; // Changed icon
 
-type Props = {
-  params?: { slug: string[] };
-};
-
-const Assistant = (props: Props) => {
+const Assistant = () => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -18,7 +14,6 @@ const Assistant = (props: Props) => {
           <span className="assistant-sparkles-animated">
             <AudioLines />
           </span>
-          {/* <span className="assistant-animated-letter">R</span> */}
         </span>
       </div>
 

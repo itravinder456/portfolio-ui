@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import "./experience.scss";
-import { Briefcase, BriefcaseBusiness, GraduationCap } from "lucide-react";
+import { BriefcaseBusiness, GraduationCap } from "lucide-react";
 
 const experiences = [
   {
