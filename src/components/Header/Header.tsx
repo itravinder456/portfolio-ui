@@ -94,12 +94,20 @@ const Header = () => {
                 Projects
               </Link>
             </li>
-            <li className={pathname === "/blog" ? "active" : ""}>
+            <li className={pathname === "/blogs" ? "active" : ""}>
               <Link
-                href="/blog"
+                href="/blogs"
                 className={`text-gray-600 hover:text-blue-500`}
               >
-                Blog
+                Blogs
+              </Link>
+            </li>
+            <li className={pathname === "/contact" ? "active" : ""}>
+              <Link
+                href="/contact"
+                className={`text-gray-600 hover:text-blue-500`}
+              >
+                Contact
               </Link>
             </li>
           </ul>

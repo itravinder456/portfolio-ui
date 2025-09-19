@@ -1,6 +1,6 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
+# Node dependencies
 /node_modules
 /.pnp
 .pnp.*
@@ -10,32 +10,232 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
+# Package managers
+/package-lock.json
+/yarn.lock
+/pnpm-lock.yaml
+/shrinkwrap.yaml
 
-# next.js
+# Testing
+/coverage
+/jest-coverage
+/test-results
+/nyc_output
+
+# Next.js
 /.next/
 /out/
 
-# production
+# Production
 /build
+/dist
 
-# misc
+# Misc
 .DS_Store
 *.pem
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*.swn
+*.bak
+*.old
+*.orig
+*.rej
+*.sublime-workspace
+*.sublime-project
+*.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
 
-# debug
+# Debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# Env files
+.env
+.env.*
+!.env.example
 
-# vercel
+# Vercel
 .vercel
 
-# typescript
+# TypeScript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.code-workspace
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+.nfs*
+
+# Windows
+*.lnk
+
+# Images and media cache
+*.psd
+*.xcf
+*.ai
+*.sketch
+*.mp4
+*.mov
+*.webm
+*.mkv
+*.avi
+*.flv
+*.wmv
+*.mp3
+*.wav
+*.ogg
+
+# Build artifacts
+*.out
+*.obj
+*.exe
+*.dll
+*.class
+*.pyc
+*.pyo
+*.pyd
+*.so
+*.dylib
+
+# Binaries
+*.bin
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+*.gz
+*.bz2
+
+# Miscellaneous
+*.pid
+*.seed
+*.pid.lock
+*.tgz
+*.lock
+*.log
+*.sqlite
+*.sqlite3
+*.db
+*.db3
+*.sdb
+*.s3db
+*.mdb
+*.accdb
+
+# Storybook
+out-storybook/
+storybook-static/
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+
+# Playwright
+test-results/
+playwright-report/
+
+# npm cache
+.npm/
+
+# VSCode history
+.history/
+
+# JetBrains Rider
+.idea/
+
+# Local env
+.local
+
+# Firebase
+.firebase/
+
+# SvelteKit
+/.svelte-kit
+
+# Expo
+.expo/
+.expo-shared/
+
+# Android Studio
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+/.idea/gradle.xml
+/.idea/sonarlint
+/.idea/.name
+/build
+/captures
+.externalNativeBuild
+.cxx
+/intermediates
+/outputs
+/.cxx
+/local.properties
+
+# Xcode
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xcscmblueprint
+*.xccheckout
+*.xcodeproj/*
+*.xcworkspace/*
+*.xcuserstate
+*.xcuserdatad
+*.moved-aside
+DerivedData
+.idea/
+*.hmap
+*.ipa
+*.xcuserstate
+
+# Flutter
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache
+.pub
+build/
+.flutter-*
