@@ -6,8 +6,9 @@ export type Skill = {
   name: string;
   category?: string;
   proficiency?: string;
-  level?: string;
-  iconUrl?: string;
+  level?: string | number;
+  iconUrl: string;
+  description?: string;
   isTopSkill?: boolean;
 };
 
@@ -18,6 +19,6 @@ export async function getSkills(): Promise<Skill[]> {
   return data;
 }
 
-export function useSkills(options?: object) {
-  return useAppQuery(SKILL_KEY, getSkills, options);
+export function useSkills() {
+  return useAppQuery(SKILL_KEY, getSkills);
 }

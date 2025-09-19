@@ -1,4 +1,4 @@
-import api from "./axios";
+import api from "../lib/axios";
 import { useQuery } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 
@@ -18,11 +18,9 @@ export async function getContactMessages(): Promise<ContactMessage[]> {
 }
 
 export function useContactMessages() {
-  return useQuery<ContactMessage[], AxiosError>(
-    CONTACT_MSG_KEY,
-    getContactMessages,
-    {
-      staleTime: 1000 * 60 * 5,
-    }
-  );
+  return useQuery<ContactMessage[], AxiosError>({
+    queryKey: CONTACT_MSG_KEY,
+    queryFn: getContactMessages,
+    staleTime: 1000 * 60 * 5,
+  });
 }

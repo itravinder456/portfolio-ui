@@ -23,6 +23,6 @@ export async function getProjects(): Promise<Project[]> {
   return data;
 }
 
-export function useProjects(options?: object) {
-  return useAppQuery(PROJECT_KEY, getProjects, options);
+export function useProjects() {
+  return useAppQuery(PROJECT_KEY, getProjects);
 }

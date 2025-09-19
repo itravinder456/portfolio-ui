@@ -1,16 +1,22 @@
 import api from "../lib/axios";
-import { useAppQuery, useAppMutation } from "@/lib/reactQuery";
+import { useAppQuery } from "@/lib/reactQuery";
 
 export type Blog = {
-  id?: string;
-  title: string;
-  content: string;
-  date?: string;
+  data: BlogItem[];
 };
 
-export async function getBlogs(): Promise<Blog[]> {
-  const { data } = await api.get<Blog[]>("/blogs");
-  return data;
+export type BlogItem = {
+  id: string;
+  title: string;
+  summary: string;
+  category: string;
+  publishedDate: string;
+  tags: string[];
+};
+
+export async function getBlogs(): Promise<BlogItem[]> {
+  const { data } = await api.get<Blog>("/blogs");
+  return data?.data;
 }
 
 export function useBlogs() {

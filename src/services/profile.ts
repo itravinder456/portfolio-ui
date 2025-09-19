@@ -2,10 +2,18 @@ import api from "../lib/axios";
 import { useAppQuery, useAppMutation } from "@/lib/reactQuery";
 
 export type Profile = {
-  id?: string;
-  name: string;
-  bio?: string;
-  avatar?: string;
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
+  email?: string;
+  address?: string;
+  languages?: string[];
+  achievements?: { title: string; description: string }[];
+  experience?: string;
+  projects?: string;
+  clients?: string;
+  awards?: string;
+  // ...other properties
 };
 
 export type UpdateProfilePayload = Partial<Profile>;
@@ -25,8 +33,8 @@ export async function updateProfile(
 }
 
 // Use generic react-query wrappers
-export function useProfile(options?: object) {
-  return useAppQuery(PROFILE_KEY, getProfile, options);
+export function useProfile() {
+  return useAppQuery(PROFILE_KEY, getProfile);
 }
 
 export function useUpdateProfile(options?: object) {

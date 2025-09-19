@@ -150,22 +150,24 @@ export default function About() {
             {achievements.length === 0 ? (
               <div className="text-gray-400">No achievements found.</div>
             ) : (
-              achievements.map((ach: any, idx: number) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: idx * 0.2 }}
-                  viewport={{ once: true }}
-                  className="relative pl-4"
-                >
-                  <span className="absolute -left-[10px] top-2 w-4 h-4 bg-cyan-400 rounded-full shadow-md" />
-                  <h3 className="text-lg font-semibold text-white">
-                    {ach.title}
-                  </h3>
-                  <p className="text-gray-300 text-sm">{ach.description}</p>
-                </motion.div>
-              ))
+              achievements.map(
+                (ach: { title: string; description: string }, idx: number) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: idx * 0.2 }}
+                    viewport={{ once: true }}
+                    className="relative pl-4"
+                  >
+                    <span className="absolute -left-[10px] top-2 w-4 h-4 bg-cyan-400 rounded-full shadow-md" />
+                    <h3 className="text-lg font-semibold text-white">
+                      {ach.title}
+                    </h3>
+                    <p className="text-gray-300 text-sm">{ach.description}</p>
+                  </motion.div>
+                )
+              )
             )}
           </div>
         </div>

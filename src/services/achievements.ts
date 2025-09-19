@@ -15,6 +15,6 @@ export async function getAchievements(): Promise<Achievement[]> {
   return data;
 }
 
-export function useAchievements(options?: object) {
-  return useAppQuery(ACH_KEY, getAchievements, options);
+export function useAchievements() {
+  return useAppQuery(ACH_KEY, getAchievements);
 }

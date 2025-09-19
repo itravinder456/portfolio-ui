@@ -41,15 +41,15 @@ const ScrollProgressor = ({ mainRef }: Props) => {
     };
   }, [pathname, mainRef]);
 
+  // scroll back to top
+  const scrollToTop = React.useCallback(() => {
+    mainRef?.current?.scrollTo({ top: 0, behavior: "smooth" });
+  }, [mainRef]);
+
   // Reset scroll progress on page change
   useEffect(() => {
     scrollToTop();
-  }, [pathname]);
-
-  // scroll back to top
-  const scrollToTop = () => {
-    mainRef?.current?.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  }, [pathname, scrollToTop]);
 
   if (!isScrollable) return null;
 

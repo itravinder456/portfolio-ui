@@ -1,10 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code, Server, Database, Wrench, Cloud } from "lucide-react";
+import { Code, Server, Database, Wrench } from "lucide-react";
 import { JSX, useState } from "react";
+import Image from "next/image";
 import "./skills.scss";
-import { useSkills } from "@/services/skills";
+import { Skill, useSkills } from "@/services/skills";
 
 const categoryIcons: Record<string, JSX.Element> = {
   Frontend: <Code className="w-6 h-6 text-cyan-400" />,
@@ -18,8 +19,8 @@ export default function Skills() {
   const { data: skillsData, isLoading } = useSkills();
 
   // Categorize skills from API
-  const categories: Record<string, any[]> = {};
-  const topSkills: any[] = [];
+  const categories: Record<string, Skill[]> = {};
+  const topSkills: Skill[] = [];
 
   if (skillsData && Array.isArray(skillsData)) {
     skillsData.forEach((skill) => {
@@ -92,7 +93,10 @@ export default function Skills() {
                       strokeDashoffset={2 * Math.PI * 50}
                       animate={{
                         strokeDashoffset:
-                          2 * Math.PI * 50 * (1 - (skill.level || 0) / 100),
+                          2 *
+                          Math.PI *
+                          50 *
+                          (1 - (Number(skill.level) || 0) / 100),
                       }}
                       transition={{ duration: 1.2, delay: idx * 0.2 }}
                     />
@@ -113,10 +117,13 @@ export default function Skills() {
                   {/* Icon in center */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     {skill.iconUrl ? (
-                      <img
+                      <Image
                         src={skill.iconUrl}
                         alt={skill.name}
+                        width={40}
+                        height={40}
                         className="w-10 h-10"
+                        unoptimized
                       />
                     ) : (
                       <Code className="w-6 h-6 text-cyan-400" />
@@ -173,7 +180,7 @@ export default function Skills() {
 
                 {/* Skill List */}
                 <div className="space-y-5">
-                  {skillset.map((skill: any, i: number) => (
+                  {skillset.map((skill: Skill, i: number) => (
                     <div key={i}>
                       <div className="flex justify-between mb-1">
                         <span className="text-gray-200 font-medium">

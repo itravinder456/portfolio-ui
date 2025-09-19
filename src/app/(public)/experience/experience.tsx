@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import { BriefcaseBusiness, GraduationCap } from "lucide-react";
 import "./experience.scss";
-import { useExperiences } from "@/services/experiences";
+import { Experience, useExperiences } from "@/services/experiences";
+import { Education } from "@/services/education";
 
 function getCompanyPeriod(roles: { period: string }[]) {
   try {
@@ -55,14 +56,14 @@ export default function ExperienceEducation() {
               ) : experiences.length === 0 ? (
                 <div className="text-gray-400">No experiences found.</div>
               ) : (
-                experiences.map((company: any, index: number) => {
+                experiences.map((company: Experience, index: number) => {
                   const companyPeriod =
                     company.roles && company.roles.length > 0
                       ? getCompanyPeriod(company.roles)
                       : "";
                   return (
                     <motion.div
-                      key={company._id || index}
+                      key={company.id || index}
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.6, delay: index * 0.2 }}
@@ -103,24 +104,33 @@ export default function ExperienceEducation() {
                         </div>
                         {/* Roles inside company */}
                         <div className="space-y-5">
-                          {company.roles?.map((role: any, rIndex: number) => (
-                            <div
-                              key={rIndex}
-                              className="border-l border-gray-600 pl-4"
-                            >
-                              <div className="flex items-center justify-between">
-                                <h5 className="text-md font-semibold text-cyan-300">
-                                  {role.role}
-                                </h5>
-                                <p className="text-xs text-gray-400">
-                                  {role.period}
+                          {company.roles?.map(
+                            (
+                              role: {
+                                role: string;
+                                period: string;
+                                description: string;
+                              },
+                              rIndex: number
+                            ) => (
+                              <div
+                                key={rIndex}
+                                className="border-l border-gray-600 pl-4"
+                              >
+                                <div className="flex items-center justify-between">
+                                  <h5 className="text-md font-semibold text-cyan-300">
+                                    {role.role}
+                                  </h5>
+                                  <p className="text-xs text-gray-400">
+                                    {role.period}
+                                  </p>
+                                </div>
+                                <p className="text-gray-300 text-sm mt-1 leading-relaxed">
+                                  {role.description}
                                 </p>
                               </div>
-                              <p className="text-gray-300 text-sm mt-1 leading-relaxed">
-                                {role.description}
-                              </p>
-                            </div>
-                          ))}
+                            )
+                          )}
                         </div>
                       </div>
                     </motion.div>
@@ -142,9 +152,9 @@ export default function ExperienceEducation() {
               ) : education.length === 0 ? (
                 <div className="text-gray-400">No education found.</div>
               ) : (
-                education.map((edu: any, idx: number) => (
+                education.map((edu: Education, idx: number) => (
                   <motion.div
-                    key={edu._id || idx}
+                    key={edu.id || idx}
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.6, delay: idx * 0.2 }}
@@ -165,13 +175,11 @@ export default function ExperienceEducation() {
                         <p className="text-xs text-gray-400">
                           {edu.startYear && edu.endYear
                             ? `${edu.startYear} - ${edu.endYear}`
-                            : edu.period || ""}
+                            : ""}
                         </p>
                       </div>
                       <p className="text-sm text-cyan-200">{edu.field}</p>
-                      <p className="text-sm text-gray-300">
-                        {edu.institution || edu.school}
-                      </p>
+                      <p className="text-sm text-gray-300">{edu.institution}</p>
                       <p className="text-xs text-gray-400 mt-2">
                         {edu.description}
                       </p>

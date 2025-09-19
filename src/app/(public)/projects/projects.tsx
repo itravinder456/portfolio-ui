@@ -4,14 +4,14 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Github, ExternalLink, Briefcase, User, X, Layers } from "lucide-react";
 import "./project.scss";
-import { useProjects } from "@/services/projects";
+import { Project, useProjects } from "@/services/projects";
 
 function ProjectCard({
   proj,
   index,
   onClick,
 }: {
-  proj: any;
+  proj: Project;
   index: number;
   onClick: () => void;
 }) {
@@ -30,7 +30,7 @@ function ProjectCard({
         {proj.role} • {proj.duration}
       </p>
       <p className="text-sm text-cyan-300 italic mb-3">
-        {proj.environment || proj.techStack?.join(", ")}
+        {proj.techStack?.join(", ")}
       </p>
       <p className="text-gray-200 leading-relaxed mb-4 text-sm line-clamp-3">
         {proj.description}
@@ -45,7 +45,7 @@ function ProjectModal({
   project,
   onClose,
 }: {
-  project: any;
+  project: Project | null;
   onClose: () => void;
 }) {
   if (!project) return null;
@@ -85,7 +85,7 @@ function ProjectModal({
           <div className="flex items-center gap-2 mb-4">
             <Layers className="w-5 h-5 text-cyan-400" />
             <p className="text-sm text-cyan-300 italic">
-              {project.environment || project.techStack?.join(", ")}
+              {project.techStack?.join(", ")}
             </p>
           </div>
 
@@ -96,9 +96,9 @@ function ProjectModal({
 
           {/* Links */}
           <div className="flex gap-6">
-            {(project.repoLink || project.links?.github) && (
+            {(project.repoLink || project.repoLink) && (
               <a
-                href={project.repoLink || project.links?.github}
+                href={project.repoLink || project.repoLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-xl hover:bg-white/20 transition text-sm"
@@ -106,9 +106,9 @@ function ProjectModal({
                 <Github size={18} /> GitHub
               </a>
             )}
-            {(project.liveLink || project.links?.live) && (
+            {(project.liveLink || project.liveLink) && (
               <a
-                href={project.liveLink || project.links?.live}
+                href={project.liveLink || project.liveLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-xl hover:opacity-90 transition text-sm text-white"
@@ -125,7 +125,7 @@ function ProjectModal({
 
 export default function Projects() {
   const [filter, setFilter] = useState("All");
-  const [selectedProject, setSelectedProject] = useState<any | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const { data: projectsData, isLoading } = useProjects();
 
@@ -136,9 +136,7 @@ export default function Projects() {
   const filteredProjects =
     filter === "All"
       ? projects
-      : projects.filter(
-          (proj) => proj.type === filter || proj.category === filter
-        );
+      : projects.filter((proj) => proj.type === filter);
 
   return (
     <section id="projects" className="h-max w-[95%] relative py-8 rounded-2xl">
@@ -179,10 +177,8 @@ export default function Projects() {
         {categories.map((cat) => {
           const sectionProjects =
             filter === "All"
-              ? projects.filter((p) => p.type === cat || p.category === cat)
-              : filteredProjects.filter(
-                  (p) => p.type === cat || p.category === cat
-                );
+              ? projects.filter((p) => p.type === cat)
+              : filteredProjects.filter((p) => p.type === cat);
 
           if (isLoading) {
             return (
@@ -212,7 +208,7 @@ export default function Projects() {
                   <ProjectCard
                     proj={proj}
                     index={idx}
-                    key={proj.id || proj._id || idx}
+                    key={proj.id || proj.id || idx}
                     onClick={() => setSelectedProject(proj)}
                   />
                 ))}
