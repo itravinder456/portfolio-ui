@@ -10,9 +10,30 @@ import {
   Briefcase,
   MapPin,
   Languages,
+  Trophy,
+  Star,
 } from "lucide-react";
 import "./about.scss";
 import { useProfile } from "@/services/profile";
+import Loader from "@/components/Loader";
+
+// Helper to format date as "MMM YYYY"
+function formatDate(date?: string | Date) {
+  if (!date) return "";
+  const d = typeof date === "string" ? new Date(date) : date;
+  return d.toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+  });
+}
+
+type AchievementAwardItem = {
+  title: string;
+  description: string;
+  date?: string | Date;
+  company?: string;
+  type: "Achievement" | "Award";
+};
 
 export default function About() {
   const { data: profile, isLoading } = useProfile();
@@ -61,8 +82,16 @@ export default function About() {
     },
   ];
 
-  // Use achievements from profile API response
-  const achievements = profile?.achievements || [];
+  // Combine and split achievements and awards based on type
+  const items: AchievementAwardItem[] = Array.isArray(profile?.achievements)
+    ? (profile.achievements as AchievementAwardItem[]).map((item) => ({
+        ...item,
+        type: item.type ?? "Achievement", // Default to "Achievement" if type is missing
+      }))
+    : [];
+
+  const achievements = items.filter((item) => item.type === "Achievement");
+  const awards = items.filter((item) => item.type === "Award");
 
   return (
     <section id="about" className="h-max w-[95%] relative py-8 rounded-2xl">
@@ -94,7 +123,7 @@ export default function About() {
               Personal Info
             </h2>
             {isLoading ? (
-              <div className="text-white">Loading...</div>
+              <Loader text="Fetching profile..." />
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {personalInfo.map((info, idx) => (
@@ -136,22 +165,25 @@ export default function About() {
               label="Completed Projects"
             />
             <StatCard value={profile?.clients || "4+"} label="Happy Clients" />
-            <StatCard value={profile?.awards || "4+"} label="Awards Won" />
+            <StatCard
+              value={awards.length !== undefined ? String(awards.length) : "4+"}
+              label="Awards Won"
+            />
           </motion.div>
         </div>
 
-        {/* Achievements */}
-        <div className="mt-20">
-          <h2 className="text-2xl font-semibold text-cyan-300 mb-8 flex items-center gap-2">
-            <Award className="w-6 h-6 text-cyan-400" /> Achievements & Awards
-          </h2>
-
-          <div className="relative border-l border-cyan-500/50 pl-6 space-y-10">
-            {achievements.length === 0 ? (
-              <div className="text-gray-400">No achievements found.</div>
-            ) : (
-              achievements.map(
-                (ach: { title: string; description: string }, idx: number) => (
+        {/* Achievements & Awards Split */}
+        <div className="mt-20 grid md:grid-cols-2 gap-16">
+          {/* Achievements */}
+          <div>
+            <h2 className="text-2xl font-semibold text-cyan-300 mb-8 flex items-center gap-2">
+              <Star className="w-6 h-6 text-cyan-400" /> Achievements
+            </h2>
+            <div className="relative border-l border-cyan-500/50 pl-6 space-y-10">
+              {achievements.length === 0 ? (
+                <div className="text-gray-400">No achievements found.</div>
+              ) : (
+                achievements.map((ach, idx) => (
                   <motion.div
                     key={idx}
                     initial={{ opacity: 0, x: -20 }}
@@ -161,14 +193,66 @@ export default function About() {
                     className="relative pl-4"
                   >
                     <span className="absolute -left-[10px] top-2 w-4 h-4 bg-cyan-400 rounded-full shadow-md" />
-                    <h3 className="text-lg font-semibold text-white">
-                      {ach.title}
-                    </h3>
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <h3 className="text-lg font-semibold text-white">
+                        {ach.title}
+                      </h3>
+                      {ach.company && (
+                        <span className="inline-block bg-cyan-500/20 text-cyan-300 text-xs font-semibold px-3 py-1 rounded-full ml-2">
+                          {ach.company}
+                        </span>
+                      )}
+                      {ach.date && (
+                        <span className="inline-block bg-white/10 text-cyan-200 text-xs font-medium px-2 py-0.5 rounded ml-2">
+                          {formatDate(ach.date)}
+                        </span>
+                      )}
+                    </div>
                     <p className="text-gray-300 text-sm">{ach.description}</p>
                   </motion.div>
-                )
-              )
-            )}
+                ))
+              )}
+            </div>
+          </div>
+          {/* Awards */}
+          <div>
+            <h2 className="text-2xl font-semibold text-cyan-300 mb-8 flex items-center gap-2">
+              <Trophy className="w-6 h-6 text-cyan-400" /> Awards
+            </h2>
+            <div className="relative border-l border-cyan-500/50 pl-6 space-y-10">
+              {awards.length === 0 ? (
+                <div className="text-gray-400">No awards found.</div>
+              ) : (
+                awards.map((award, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: idx * 0.2 }}
+                    viewport={{ once: true }}
+                    className="relative pl-4"
+                  >
+                    <span className="absolute -left-[10px] top-2 w-4 h-4 bg-cyan-400 rounded-full shadow-md" />
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <h3 className="text-lg font-semibold text-white">
+                        {award.title}
+                      </h3>
+                      {award.company && (
+                        <span className="inline-block bg-cyan-500/20 text-cyan-300 text-xs font-semibold px-3 py-1 rounded-full ml-2">
+                          {award.company}
+                        </span>
+                      )}
+                      {award.date && (
+                        <span className="inline-block bg-white/10 text-cyan-200 text-xs font-medium px-2 py-0.5 rounded ml-2">
+                          {formatDate(award.date)}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-gray-300 text-sm">{award.description}</p>
+                  </motion.div>
+                ))
+              )}
+            </div>
           </div>
         </div>
       </div>

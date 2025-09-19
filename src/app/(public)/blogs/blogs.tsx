@@ -6,6 +6,7 @@ import { Calendar, X } from "lucide-react";
 import { BlogItem, useBlogs } from "@/services/blogs";
 import "./blogs.scss";
 import { formatDate } from "@/lib/helper";
+import Loader from "@/components/Loader";
 
 export default function Blogs() {
   const [filter, setFilter] = useState("All");
@@ -46,11 +47,7 @@ export default function Blogs() {
         </motion.h2>
 
         {/* Loading/Error */}
-        {isLoading && (
-          <div className="text-center text-gray-300 py-12">
-            Loading blogs...
-          </div>
-        )}
+        {isLoading && <Loader text="Fetching blogs..." />}
         {isError && (
           <div className="text-center text-red-400 py-12">
             Failed to load blogs.

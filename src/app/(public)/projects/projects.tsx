@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Github, ExternalLink, Briefcase, User, X, Layers } from "lucide-react";
 import "./project.scss";
 import { Project, useProjects } from "@/services/projects";
+import Loader from "@/components/Loader";
 
 function ProjectCard({
   proj,
@@ -129,7 +130,8 @@ export default function Projects() {
 
   const { data: projectsData, isLoading } = useProjects();
 
-  const categories = ["Professional", "Personal"];
+  // Add "Outsourced" to categories
+  const categories = ["Professional", "Outsourced", "Personal"];
 
   const projects = projectsData || [];
 
@@ -181,11 +183,7 @@ export default function Projects() {
               : filteredProjects.filter((p) => p.type === cat);
 
           if (isLoading) {
-            return (
-              <div key={cat} className="text-white mb-16">
-                Loading...
-              </div>
-            );
+            return <Loader key={cat} text="Fetching projects..." />;
           }
 
           if (!sectionProjects.length) return null;
@@ -195,8 +193,10 @@ export default function Projects() {
               <div className="flex items-center gap-3 mb-8">
                 {cat === "Professional" ? (
                   <Briefcase className="w-6 h-6 text-cyan-400" />
-                ) : (
+                ) : cat === "Personal" ? (
                   <User className="w-6 h-6 text-cyan-400" />
+                ) : (
+                  <Layers className="w-6 h-6 text-cyan-400" />
                 )}
                 <h3 className="text-2xl font-semibold text-white">
                   {cat} Projects

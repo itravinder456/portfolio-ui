@@ -8,7 +8,12 @@ export type Profile = {
   email?: string;
   address?: string;
   languages?: string[];
-  achievements?: { title: string; description: string }[];
+  achievements?: {
+    title: string;
+    description: string;
+    date: string;
+    company: string;
+  }[];
   experience?: string;
   projects?: string;
   clients?: string;

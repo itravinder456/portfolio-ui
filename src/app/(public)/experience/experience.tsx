@@ -5,6 +5,7 @@ import { BriefcaseBusiness, GraduationCap } from "lucide-react";
 import "./experience.scss";
 import { Experience, useExperiences } from "@/services/experiences";
 import { Education } from "@/services/education";
+import Loader from "@/components/Loader";
 
 function getCompanyPeriod(roles: { period: string }[]) {
   try {
@@ -52,7 +53,7 @@ export default function ExperienceEducation() {
 
             <div className="relative border-l border-cyan-500/40 pl-6 space-y-10">
               {isLoading ? (
-                <div className="text-white">Loading...</div>
+                <Loader text="Fetching experience..." />
               ) : experiences.length === 0 ? (
                 <div className="text-gray-400">No experiences found.</div>
               ) : (
@@ -148,7 +149,7 @@ export default function ExperienceEducation() {
 
             <div className="relative border-l border-green-500/40 pl-6 space-y-10">
               {isLoading ? (
-                <div className="text-white">Loading...</div>
+                <Loader text="Fetching education..." />
               ) : education.length === 0 ? (
                 <div className="text-gray-400">No education found.</div>
               ) : (

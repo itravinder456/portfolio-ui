@@ -6,6 +6,7 @@ import { JSX, useState } from "react";
 import Image from "next/image";
 import "./skills.scss";
 import { Skill, useSkills } from "@/services/skills";
+import Loader from "@/components/Loader";
 
 const categoryIcons: Record<string, JSX.Element> = {
   Frontend: <Code className="w-6 h-6 text-cyan-400" />,
@@ -55,7 +56,7 @@ export default function Skills() {
         {/* Top Skills Highlight */}
         <div className="flex flex-wrap justify-center gap-10 mb-20 relative">
           {isLoading ? (
-            <div className="text-white">Loading...</div>
+            <Loader text="Fetching skills..." />
           ) : topSkills.length === 0 ? (
             <div className="text-gray-400">No top skills found.</div>
           ) : (
@@ -155,7 +156,7 @@ export default function Skills() {
         {/* Grid of categories */}
         <div className="grid md:grid-cols-2 gap-12">
           {isLoading ? (
-            <div className="text-white">Loading...</div>
+            <Loader text="Fetching skills..." />
           ) : Object.keys(categories).length === 0 ? (
             <div className="text-gray-400">No skills found.</div>
           ) : (
