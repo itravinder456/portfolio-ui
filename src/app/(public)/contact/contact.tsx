@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Github, Linkedin, Send, X } from "lucide-react";
 import { useState } from "react";
 import { useSendContact } from "@/services/contact";
+import { useProfile } from "@/services/profile";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,9 @@ export default function Contact() {
   const [status, setStatus] = useState("");
   const [showModal, setShowModal] = useState(false);
   const mutation = useSendContact();
+
+  // Fetch profile data
+  const { data: profile } = useProfile();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -33,7 +37,6 @@ export default function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("Sending...");
-    // Send cc field as part of payload if backend supports it
     const payload = {
       name: formData.name,
       email: formData.email,
@@ -70,32 +73,39 @@ export default function Contact() {
           <h3 className="text-2xl font-semibold text-white mb-6">
             Let’s Connect
           </h3>
-          <p className="text-gray-300 mb-6">
-            I’d love to collaborate on exciting projects or discuss
-            opportunities. Drop me a message!
-          </p>
+          <p className="text-gray-300 mb-6">{profile?.contactPageSummary}</p>
           <div className="space-y-4 text-gray-300">
             <p className="flex items-center gap-3">
-              <Mail className="text-cyan-400" /> it.ravinder.456@gmail.com
+              <Mail className="text-cyan-400" />
+              <a
+                href={profile?.email ? `mailto:${profile.email}` : undefined}
+                className="hover:underline text-cyan-300"
+                target="_blank"
+              >
+                {profile?.email}
+              </a>
             </p>
             <p className="flex items-center gap-3">
-              <Phone className="text-cyan-400" /> +91 9515295330
+              <Phone className="text-cyan-400" /> {profile?.phone}
             </p>
             <p className="flex items-center gap-3">
-              <MapPin className="text-cyan-400" /> Hyderabad, India
+              <MapPin className="text-cyan-400" />{" "}
+              {profile?.location || profile?.address}
             </p>
           </div>
           <div className="flex gap-6 mt-8">
             <a
-              href="https://github.com/itravinder456?tab=repositories"
+              href={profile?.githubUrl}
               target="_blank"
+              rel="noopener noreferrer"
               className="text-gray-300 hover:text-cyan-400"
             >
               <Github size={24} />
             </a>
             <a
-              href="https://www.linkedin.com/in/varikuppala-ravinder/"
+              href={profile?.linkedinUrl}
               target="_blank"
+              rel="noopener noreferrer"
               className="text-gray-300 hover:text-cyan-400"
             >
               <Linkedin size={24} />

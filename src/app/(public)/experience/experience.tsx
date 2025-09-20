@@ -6,23 +6,18 @@ import "./experience.scss";
 import { Experience, useExperiences } from "@/services/experiences";
 import { Education } from "@/services/education";
 import Loader from "@/components/Loader";
-
-function getCompanyPeriod(roles: { period: string }[]) {
-  try {
-    const newest = roles[0].period.split(" - ").slice(-1)[0] || roles[0].period;
-    const oldest =
-      roles[roles.length - 1].period.split(" - ")[0] ||
-      roles[roles.length - 1].period;
-    return `${oldest} — ${newest}`;
-  } catch {
-    return roles.map((r) => r.period).join(", ");
-  }
-}
+import { getCompanyPeriod, universalSort } from "@/lib/helper"; // Import the sort function
 
 export default function ExperienceEducation() {
   const { data, isLoading } = useExperiences();
-  const experiences = data?.experiences || [];
-  const education = data?.education || [];
+  // Sort experiences by the most recent role's period (assuming ISO date or year at end)
+  const experiences = universalSort(
+    data?.experiences || [],
+    "roles.0.period",
+    "desc"
+  );
+  // Sort education by endYear (desc), then startYear (desc)
+  const education = universalSort(data?.education || [], "endYear", "desc");
 
   return (
     <section
@@ -175,7 +170,9 @@ export default function ExperienceEducation() {
                         </h4>
                         <p className="text-xs text-gray-400">
                           {edu.startYear && edu.endYear
-                            ? `${edu.startYear} - ${edu.endYear}`
+                            ? edu.startYear === edu.endYear
+                              ? `${edu.startYear}`
+                              : `${edu.startYear} - ${edu.endYear}`
                             : ""}
                         </p>
                       </div>

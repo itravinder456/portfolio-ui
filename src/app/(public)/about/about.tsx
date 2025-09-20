@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import {
   Mail,
   Phone,
-  Award,
   User,
   Globe,
   Briefcase,
@@ -16,16 +15,7 @@ import {
 import "./about.scss";
 import { useProfile } from "@/services/profile";
 import Loader from "@/components/Loader";
-
-// Helper to format date as "MMM YYYY"
-function formatDate(date?: string | Date) {
-  if (!date) return "";
-  const d = typeof date === "string" ? new Date(date) : date;
-  return d.toLocaleDateString(undefined, {
-    year: "numeric",
-    month: "short",
-  });
-}
+import { formatDate, universalSort } from "@/lib/helper"; // <-- Import the sort function
 
 type AchievementAwardItem = {
   title: string;
@@ -41,44 +31,41 @@ export default function About() {
   const personalInfo = [
     {
       icon: <User className="w-5 h-5 text-cyan-400" />,
-      label: "First Name",
-      value: profile?.firstName || "",
-    },
-    {
-      icon: <User className="w-5 h-5 text-cyan-400" />,
-      label: "Last Name",
-      value: profile?.lastName || "",
+      label: "Name",
+      value:
+        `${profile?.firstName || ""} ${profile?.lastName || ""}`.trim() ||
+        "Ravinder Varikuppala",
     },
     {
       icon: <Globe className="w-5 h-5 text-cyan-400" />,
       label: "Nationality",
-      value: "Indian",
+      value: profile?.nationality || "Indian",
     },
     {
       icon: <Briefcase className="w-5 h-5 text-cyan-400" />,
       label: "Freelance",
-      value: "Available",
+      value: profile?.freelance || "Available",
       highlight: true,
     },
     {
       icon: <Phone className="w-5 h-5 text-cyan-400" />,
       label: "Phone",
-      value: profile?.phone || "+91 9515295330",
+      value: profile?.phone,
     },
     {
       icon: <Mail className="w-5 h-5 text-cyan-400" />,
       label: "Email",
-      value: profile?.email || "it.ravinder.456@gmail.com",
+      value: profile?.email,
     },
     {
       icon: <MapPin className="w-5 h-5 text-cyan-400" />,
       label: "Address",
-      value: profile?.address || "Hyderabad, India",
+      value: profile?.address,
     },
     {
       icon: <Languages className="w-5 h-5 text-cyan-400" />,
       label: "Languages",
-      value: profile?.languages?.join(", ") || "English, Hindi, Telugu",
+      value: profile?.languages?.join(", "),
     },
   ];
 
@@ -90,8 +77,17 @@ export default function About() {
       }))
     : [];
 
-  const achievements = items.filter((item) => item.type === "Achievement");
-  const awards = items.filter((item) => item.type === "Award");
+  // Use universalSort for sorting by date descending
+  const achievements = universalSort(
+    items.filter((item) => item.type === "Achievement"),
+    "date",
+    "desc"
+  );
+  const awards = universalSort(
+    items.filter((item) => item.type === "Award"),
+    "date",
+    "desc"
+  );
 
   return (
     <section id="about" className="h-max w-[95%] relative py-8 rounded-2xl">

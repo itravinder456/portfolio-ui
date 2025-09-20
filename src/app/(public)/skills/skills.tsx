@@ -143,7 +143,7 @@ export default function Skills() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.3 }}
-                    className="absolute -bottom-24 w-60 bg-white/10 backdrop-blur-lg text-gray-200 text-sm p-4 rounded-xl shadow-lg"
+                    className="absolute -bottom-24 w-60 bg-white/10 backdrop-blur-lg text-gray-200 text-sm p-4 rounded-xl shadow-lg z-99"
                   >
                     {skill.description || "No description available."}
                   </motion.div>
