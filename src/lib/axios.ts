@@ -21,14 +21,14 @@ axiosClient.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
 
-    console.log(
-      `[API Request] ${config.method?.toUpperCase()} ${config.url}`,
-      config.data || ""
-    );
+    // console.log(
+    //   `[API Request] ${config.method?.toUpperCase()} ${config.url}`,
+    //   config.data || ""
+    // );
     return config;
   },
   (error) => {
-    console.error("[API Request Error]", error);
+    // console.error("[API Request Error]", error);
     return Promise.reject(error);
   }
 );
