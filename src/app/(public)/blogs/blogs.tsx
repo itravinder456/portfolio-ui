@@ -85,7 +85,7 @@ export default function Blogs() {
                 transition={{ duration: 0.6, delay: idx * 0.1 }}
                 viewport={{ once: true }}
                 onClick={() => setSelectedBlog(blog)}
-                className="relative group backdrop-blur-lg bg-white/10 rounded-2xl shadow-lg p-6 border border-white/10 hover:border-cyan-400/40 hover:shadow-cyan-400/30 transition cursor-pointer"
+                className="relative group backdrop-blur-lg bg-white/10 rounded-2xl shadow-lg p-6 border border-white/10 hover:border-cyan-400/40 hover:shadow-cyan-400/30  cursor-pointer"
               >
                 <h4 className="text-xl font-semibold text-white mb-2">
                   {blog.title}
