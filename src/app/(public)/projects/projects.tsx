@@ -176,13 +176,13 @@ export default function Projects() {
         </div>
 
         {/* Sections */}
-        {categories.map((cat) => {
+        {categories.map((cat, index) => {
           const sectionProjects =
             filter === "All"
               ? projects.filter((p) => p.type === cat)
               : filteredProjects.filter((p) => p.type === cat);
 
-          if (isLoading) {
+          if (isLoading && index === 0) {
             return <Loader key={cat} text="Fetching projects..." />;
           }
 

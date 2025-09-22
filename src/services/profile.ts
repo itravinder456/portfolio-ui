@@ -1,6 +1,6 @@
 import api from "../lib/axios";
 import { useAppQuery, useAppMutation } from "@/lib/reactQuery";
-import { useMutation, UseMutationOptions } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 export type Profile = {
   firstName?: string;
@@ -27,15 +27,14 @@ export type Profile = {
   aboutPageSummary?: string;
   homePageSummary?: string;
   homePageSkills?: string[];
+  happyClients?: number;
   title?: string;
   subtitle?: string;
   imageUrl?: string;
   linkedin: string;
   github: string;
-  experience?: string;
-  projects?: string;
-  clients?: string;
-  awards?: string;
+  completedProjects?: string;
+  awardsWon?: string;
   // ...other properties
 };
 

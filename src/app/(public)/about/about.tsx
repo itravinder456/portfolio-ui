@@ -153,14 +153,27 @@ export default function About() {
             className="grid grid-cols-2 gap-6"
           >
             <StatCard
-              value={profile?.experience || "6+"}
+              value={
+                profile?.yearsOfExperience
+                  ? String(profile.yearsOfExperience)
+                  : "6+"
+              }
               label="Years of Experience"
             />
             <StatCard
-              value={profile?.projects || "11+"}
+              value={
+                profile?.completedProjects
+                  ? String(profile.completedProjects)
+                  : "11+"
+              }
               label="Completed Projects"
             />
-            <StatCard value={profile?.clients || "4+"} label="Happy Clients" />
+            <StatCard
+              value={
+                profile?.happyClients ? String(profile.happyClients) : "4+"
+              }
+              label="Happy Clients"
+            />
             <StatCard
               value={awards.length !== undefined ? String(awards.length) : "4+"}
               label="Awards Won"
@@ -262,7 +275,7 @@ function StatCard({ value, label }: { value: string; label: string }) {
       whileHover={{ scale: 1.05 }}
       className="backdrop-blur-lg bg-white/10 rounded-xl shadow-md p-6 text-center hover:bg-white/20 transition flex flex-col items-center justify-center"
     >
-      <h3 className="text-3xl font-bold text-cyan-400">{value}</h3>
+      <h3 className="text-3xl font-bold text-cyan-400">{value}+</h3>
       <p className="text-gray-300 mt-2 text-sm uppercase">{label}</p>
     </motion.div>
   );

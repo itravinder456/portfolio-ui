@@ -1,7 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code, Server, Database, Wrench } from "lucide-react";
+import {
+  Code,
+  Server,
+  Database,
+  Wrench,
+  Cloud,
+  Network,
+  TicketCheck,
+} from "lucide-react";
 import { JSX, useState } from "react";
 import Image from "next/image";
 import "./skills.scss";
@@ -10,9 +18,13 @@ import Loader from "@/components/Loader";
 
 const categoryIcons: Record<string, JSX.Element> = {
   Frontend: <Code className="w-6 h-6 text-cyan-400" />,
+  "State Management": <Network className="w-6 h-6 text-cyan-400" />,
+  Cloud: <Cloud className="w-6 h-6 text-cyan-400" />,
   Backend: <Server className="w-6 h-6 text-cyan-400" />,
   Database: <Database className="w-6 h-6 text-cyan-400" />,
-  "Tools & Others": <Wrench className="w-6 h-6 text-cyan-400" />,
+  Tools: <Wrench className="w-6 h-6 text-cyan-400" />,
+  Testing: <TicketCheck className="w-6 h-6 text-cyan-400" />,
+  Others: <Wrench className="w-6 h-6 text-cyan-400" />,
 };
 
 export default function Skills() {
@@ -156,7 +168,7 @@ export default function Skills() {
         {/* Grid of categories */}
         <div className="grid md:grid-cols-2 gap-12">
           {isLoading ? (
-            <Loader text="Fetching skills..." />
+            <></>
           ) : Object.keys(categories).length === 0 ? (
             <div className="text-gray-400">No skills found.</div>
           ) : (
