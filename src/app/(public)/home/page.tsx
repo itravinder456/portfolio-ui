@@ -131,7 +131,7 @@ const Home = () => {
         transition={{ delay: 1.2 }}
         className="absolute bottom-6 flex justify-center w-full z-10"
       >
-        <Link href="/experience" aria-label="Scroll Down">
+        <Link href="/about" aria-label="Scroll Down">
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
